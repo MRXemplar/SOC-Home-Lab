@@ -1,0 +1,15 @@
+<dashboard version="1.1" theme="light">
+  <label>Brute Force Detection</label>
+  <row>
+    <panel>
+      <event>
+        <search>
+          <query>index=* sourcetype=syslog "failed password" | stats count by host,src,usr | sort - count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="list.drilldown">none</option>
+      </event>
+    </panel>
+  </row>
+</dashboard>
