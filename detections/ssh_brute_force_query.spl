@@ -1,0 +1,3 @@
+index=* sourcetype=syslog "Failed password"
+| stats count by host, user, src
+| where count > 5
