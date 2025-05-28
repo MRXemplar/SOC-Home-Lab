@@ -51,20 +51,20 @@ index=* sourcetype=syslog "Failed password"
 | stats count by host, user, src
 | where count > 5
 
-✅ 5. Dashboard
-Created Splunk dashboard visualizing brute-force SSH detection
+### ✅ 5. Dashboard
+- Created Splunk dashboard visualizing brute-force SSH detection
 
-Exported dashboard to dashboards/brute_force_dashboard.xml
+- Exported dashboard to dashboards/brute_force_dashboard.xml
 
-📁 Files You Can Check
-dashboards/brute_force_dashboard.xml: The main Splunk dashboard export
+## 📁 Files You Can Check
+- dashboards/brute_force_dashboard.xml: The main Splunk dashboard export
 
-detections/: SPL query used for brute-force detection
+- detections/: SPL query used for brute-force detection
 
-config/: Config files for rsyslog, Winlogbeat, and Sysmon (to be added)
+- config/: Config files for rsyslog, Winlogbeat, and Sysmon (to be added)
 
-reports/: Will contain documentation and IR playbooks
+- reports/: Will contain documentation and IR playbooks
 
-🧠 Outcome
-This project demonstrates real-world SOC analyst skills, from environment setup to attack detection using open-source tools and enterprise SIEM.
+## 🧠 Outcome
+- This project demonstrates real-world SOC analyst skills, from environment setup to attack detection using open-source tools and enterprise SIEM.
 
