@@ -1,70 +1,92 @@
 # SOC Home Lab
 
 ## 🎯 Objective
-Build a self-hosted SOC (Security Operations Center) home lab to demonstrate foundational skills in threat detection, log forwarding, and SIEM analysis using Splunk and multiple operating systems.
+Build a self-hosted SOC (Security Operations Center) home lab to demonstrate key cybersecurity skills including threat detection, log forwarding, and SIEM analysis using Splunk.
 
 ---
 
-## 🛠️ Tools & Technologies Used
-- **Splunk Enterprise (SIEM)**
-- **Windows Server 2019** (Event log source)
-- **Ubuntu Server** (Syslog source)
-- **Kali Linux** (Attack simulation with Hydra)
-- **Ubuntu Desktop** (Splunk installed here)
-- **VirtualBox** (VM Management)
-- **Winlogbeat**, **Sysmon**, **rsyslog**
+## 🛠️ Tools & Technologies
+- **Splunk Enterprise** – SIEM tool
+- **Windows Server 2019** – Windows event log source
+- **Ubuntu Server** – Syslog source
+- **Kali Linux** – Attack simulation
+- **Ubuntu Desktop** – Splunk installed here
+- **VirtualBox** – VM management
+- **Winlogbeat** + **Sysmon** – Windows log forwarding & enrichment
+- **rsyslog** – Linux log forwarding
 
 ---
 
-## 🧪 Lab Structure
+## 🧪 Lab Architecture
+
+```
 SOC-Home-Lab/
-│
-├── config/ # Configuration files (Winlogbeat, Sysmon, rsyslog)
-├── dashboards/ # Splunk dashboard exports (XML)
-├── detections/ # SPL queries used to detect attacks
-├── reports/ # Lab summary and attack documentation
-└── README.md # This file
+├── config/               # Configuration files (Sysmon, Winlogbeat, rsyslog)
+├── dashboards/           # Splunk dashboard exports
+├── detections/           # SPL queries for threat detection
+├── reports/              # Documentation and findings (to be added)
+└── README.md             # Project overview
+```
 
 ---
 
-## 🔍 Activities Completed
+## ✅ Lab Setup Summary
 
-### ✅ 1. Virtual Environment Setup
-- Created 4 Virtual Machines using VirtualBox:
-  - Ubuntu Desktop (Splunk)
-  - Ubuntu Server (Log source)
-  - Windows Server 2019 (Log source)
-  - Kali Linux (Attack simulator)
+### 🔧 1. Virtual Machines Created
+- **Ubuntu Desktop**: Splunk installed and running
+- **Windows Server 2019**: Used as a Windows event log source
+- **Ubuntu Server**: Used as a Linux syslog source
+- **Kali Linux**: Used to simulate attacks (Hydra SSH brute-force)
 
-### ✅ 2. Log Forwarding Configuration
-- Windows logs collected using **Winlogbeat** and enriched with **Sysmon**
-- Ubuntu Server logs sent using **rsyslog**
-- Logs forwarded to Splunk via port `9997` (TCP) and `514` (UDP)
+### 🔌 2. Log Forwarding Configured
+- **Windows**: 
+  - Installed Sysmon for advanced log collection
+  - Installed and configured Winlogbeat to forward logs to Splunk
+- **Ubuntu Server**:
+  - Configured rsyslog to forward system logs via UDP/514
+- **Splunk**:
+  - Enabled data input for TCP/9997 and UDP/514
+  - Confirmed receipt of logs from both Windows and Ubuntu
 
-### ✅ 3. Attack Simulation
-- Simulated a brute-force SSH attack from Kali Linux using Hydra
+### ⚔️ 3. Attack Simulated
+- Used Hydra from Kali Linux to simulate a brute-force SSH attack:
+  ```bash
+  hydra -l test -P /usr/share/wordlists/rockyou.txt ssh://<target-ip>
+  ```
 
-### ✅ 4. Detection in Splunk
-- Ran SPL query to detect multiple failed SSH login attempts:
-```spl
-index=* sourcetype=syslog "Failed password"
-| stats count by host, user, src
-| where count > 5
+### 🔍 4. Detection Performed in Splunk
+- Verified logs in Splunk and created a basic SPL query to detect brute-force attempts:
+  ```spl
+  index=* sourcetype=syslog "Failed password"
+  | stats count by host, user, src
+  | where count > 5
+  ```
+- Exported dashboard visualizing brute-force activity
 
-### ✅ 5. Dashboard
-- Created Splunk dashboard visualizing brute-force SSH detection
+---
 
-- Exported dashboard to dashboards/brute_force_dashboard.xml
+## 📁 Key Files
 
-## 📁 Files You Can Check
-- dashboards/brute_force_dashboard.xml: The main Splunk dashboard export
+| Path | Description |
+|------|-------------|
+| `dashboards/brute_force_dashboard.xml` | Splunk dashboard export (XML) showing failed SSH login detections |
+| `detections/ssh_brute_force_query.spl` | SPL query used to detect SSH brute-force attacks |
+| `config/` | Placeholder for Winlogbeat, Sysmon, and rsyslog config files (to be added) |
 
-- detections/: SPL query used for brute-force detection
+---
 
-- config/: Config files for rsyslog, Winlogbeat, and Sysmon (to be added)
+## 🔜 Next Steps
+> These are planned but **not included** in the project yet:
 
-- reports/: Will contain documentation and IR playbooks
+- Create Splunk alerts for automatic brute-force detection
+- Add more attack simulations (e.g., malware, web defacement, lateral movement)
+- Create and document incident response playbooks
+- Upload full documentation and screenshots to `reports/`
+
+---
 
 ## 🧠 Outcome
-- This project demonstrates real-world SOC analyst skills, from environment setup to attack detection using open-source tools and enterprise SIEM.
-
+This lab demonstrates practical experience in:
+- Setting up a real-world SOC environment
+- Collecting logs from multiple operating systems
+- Detecting and visualizing cyberattacks using Splunk
