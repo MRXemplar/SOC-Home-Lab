@@ -1,3 +1,21 @@
-SOC Home Lab Summary Report
+SOC Home Lab - Summary Report
 
-Details to be added...
+This project demonstrates core SOC analyst skills using a home lab with:
+- Splunk SIEM
+- Log forwarding from Windows (via Winlogbeat + Sysmon)
+- Log forwarding from Linux (via rsyslog)
+- Simulated attacks (SSH brute-force) from Kali Linux
+
+Confirmed logs:
+- Windows Event Logs (Application, Security, System)
+- Sysmon logs
+- Linux syslogs
+
+Attack Simulated:
+- SSH brute-force from Kali to Ubuntu
+- Detected via Splunk search queries
+
+Next Steps:
+- Add more detection rules
+- Set up alerting in Splunk
+- Write incident response playbooks

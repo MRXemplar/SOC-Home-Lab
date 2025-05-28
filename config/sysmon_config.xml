@@ -1,2 +1,8 @@
-<!-- Sample Sysmon config -->
-...
+<Sysmon schemaversion="4.50">
+  <HashAlgorithms>md5,sha256</HashAlgorithms>
+  <EventFiltering>
+    <RuleGroup name="default" groupRelation="or">
+      <ProcessCreate onmatch="include" />
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
