@@ -24,7 +24,7 @@ SOC-Home-Lab/
 ├── config/               # Configuration files (Sysmon, Winlogbeat, rsyslog)
 ├── dashboards/           # Splunk dashboard exports
 ├── detections/           # SPL queries for threat detection
-├── reports/              # Documentation and findings (to be added)
+├── reports/              # Documentation and findings
 └── README.md             # Project overview
 ```
 
